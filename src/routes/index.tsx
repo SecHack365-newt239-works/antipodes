@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 
+import { Wrapper } from "@googlemaps/react-wrapper";
 import { createFileRoute } from "@tanstack/react-router";
-import GoogleMapReact from "google-map-react";
 
+import Content from "#/components/Content";
 import { calculateAntipodes } from "#/libs/antipodes";
 
 export const Route = createFileRoute("/")({
@@ -37,52 +38,34 @@ export const Route = createFileRoute("/")({
     }, []);
 
     return (
-      <div style={{ display: "flex", flexDirection: "row", gap: "1%" }}>
-        {currentPosition && (
-          <div style={{ width: "48%" }}>
-            <div>
-              <h2>Current Position</h2>
-              <p>Latitude: {currentPosition.lat}</p>
-              <p>Longitude: {currentPosition.lon}</p>
+      <Wrapper apiKey={googleMapsApiKey}>
+        <div style={{ display: "flex", flexDirection: "row", gap: "1%" }}>
+          {currentPosition && (
+            <div style={{ width: "48%" }}>
+              <div>
+                <h2>Current Position</h2>
+                <p>Latitude: {currentPosition.lat}</p>
+                <p>Longitude: {currentPosition.lon}</p>
+              </div>
+              <div style={{ width: "100%", height: "500px" }}>
+                <Content lat={currentPosition.lat} lng={currentPosition.lon} />
+              </div>
             </div>
-            <div style={{ width: "100%", height: "500px" }}>
-              <GoogleMapReact
-                bootstrapURLKeys={{
-                  key: googleMapsApiKey,
-                  language: "ja",
-                }}
-                defaultCenter={{
-                  lat: currentPosition.lat,
-                  lng: currentPosition.lon,
-                }}
-                defaultZoom={11}
-              ></GoogleMapReact>
+          )}
+          {antipode && (
+            <div style={{ width: "48%" }}>
+              <div>
+                <h2>Antipode</h2>
+                <p>Latitude: {antipode.lat}</p>
+                <p>Longitude: {antipode.lon}</p>
+              </div>
+              <div style={{ width: "100%", height: "500px" }}>
+                <Content lat={antipode.lat} lng={antipode.lon} />
+              </div>
             </div>
-          </div>
-        )}
-        {antipode && (
-          <div style={{ width: "48%" }}>
-            <div>
-              <h2>Antipode</h2>
-              <p>Latitude: {antipode.lat}</p>
-              <p>Longitude: {antipode.lon}</p>
-            </div>
-            <div style={{ width: "100%", height: "500px" }}>
-              <GoogleMapReact
-                bootstrapURLKeys={{
-                  key: googleMapsApiKey,
-                  language: "ja",
-                }}
-                defaultCenter={{
-                  lat: antipode.lat,
-                  lng: antipode.lon,
-                }}
-                defaultZoom={11}
-              ></GoogleMapReact>
-            </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      </Wrapper>
     );
   },
 });
