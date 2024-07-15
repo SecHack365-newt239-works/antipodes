@@ -12,10 +12,8 @@ export const Route = createFileRoute("/")({
     // see https://developers.google.com/maps/documentation/javascript
     const googleMapsApiKey = import.meta.env.VITE_API_KEY as string;
 
-    const [currentPosition, setCurrentPosition] = useState<{
-      lat: number;
-      lon: number;
-    } | null>(null);
+    const [currentPosition, setCurrentPosition] =
+      useState<GeolocationPosition | null>(null);
     const [antipode, setAntipode] = useState<{
       lat: number;
       lon: number;
@@ -24,10 +22,8 @@ export const Route = createFileRoute("/")({
     useEffect(() => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
-          setCurrentPosition({
-            lat: position.coords.latitude,
-            lon: position.coords.longitude,
-          });
+          console.log(position);
+          setCurrentPosition(position);
           setAntipode(
             calculateAntipodes(
               position.coords.latitude,
@@ -45,23 +41,57 @@ export const Route = createFileRoute("/")({
             <div style={{ width: "48%" }}>
               <div>
                 <h2>Current Position</h2>
-                <p>Latitude: {currentPosition.lat}</p>
-                <p>Longitude: {currentPosition.lon}</p>
+                <table>
+                  <tr>
+                    <td>Latitude</td>
+                    <td>{currentPosition.coords.latitude}</td>
+                  </tr>
+                  <tr>
+                    <td>Longitude</td>
+                    <td>{currentPosition.coords.longitude}</td>
+                  </tr>
+                  <tr>
+                    <td>Altitude</td>
+                    <td>{currentPosition.coords.altitude}</td>
+                  </tr>
+                  <tr>
+                    <td>Accuracy</td>
+                    <td>{currentPosition.coords.accuracy}</td>
+                  </tr>
+                  <tr>
+                    <td>Altitude Accuracy</td>
+                    <td>{currentPosition.coords.altitudeAccuracy}</td>
+                  </tr>
+                  <tr>
+                    <td>Heading</td>
+                    <td>{currentPosition.coords.heading}</td>
+                  </tr>
+                  <tr>
+                    <td>Speed</td>
+                    <td>{currentPosition.coords.speed}</td>
+                  </tr>
+                </table>
               </div>
               <div style={{ width: "100%", height: "500px" }}>
                 <Content
-                  lat={currentPosition.lat}
-                  lng={currentPosition.lon}
+                  lat={currentPosition.coords.latitude}
+                  lng={currentPosition.coords.longitude}
                   zoom={16}
                 >
                   <Marker
                     position={{
-                      lat: currentPosition.lat,
-                      lng: currentPosition.lon,
+                      lat: currentPosition.coords.latitude,
+                      lng: currentPosition.coords.longitude,
                     }}
                   />
                 </Content>
               </div>
+              <p>
+                ref:{" "}
+                <a href="https://developer.mozilla.org/ja/docs/Web/API/GeolocationCoordinates">
+                  https://developer.mozilla.org/ja/docs/Web/API/GeolocationCoordinates
+                </a>
+              </p>
             </div>
           )}
           {antipode && (
