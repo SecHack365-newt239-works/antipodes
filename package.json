@@ -20,6 +20,7 @@
   "devDependencies": {
     "@tanstack/router-devtools": "^1.40.0",
     "@tanstack/router-plugin": "^1.39.13",
+    "@types/google.maps": "^3.55.11",
     "@types/node": "^20.14.9",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
@@ -31,7 +32,6 @@
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-react": "^7.34.3",
-    "google.maps": "link:@types/google.mapstypes/google.maps",
     "prettier": "^3.3.2",
     "typescript": "^5.2.2",
     "vite": "^5.3.1"

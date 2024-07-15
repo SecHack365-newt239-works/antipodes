@@ -30,6 +30,9 @@ importers:
       '@tanstack/router-plugin':
         specifier: ^1.39.13
         version: 1.39.13(vite@5.3.1(@types/node@20.14.9))
+      '@types/google.maps':
+        specifier: ^3.55.11
+        version: 3.55.11
       '@types/node':
         specifier: ^20.14.9
         version: 20.14.9
@@ -63,9 +66,6 @@ importers:
       eslint-plugin-react:
         specifier: ^7.34.3
         version: 7.34.3(eslint@8.57.0)
-      google.maps:
-        specifier: link:@types/google.mapstypes/google.maps
-        version: link:@types/google.mapstypes/google.maps
       prettier:
         specifier: ^3.3.2
         version: 3.3.2
@@ -652,6 +652,9 @@ packages:
 
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
+
+  '@types/google.maps@3.55.11':
+    resolution: {integrity: sha512-F3VuPtjKj4UGuyym75pqmgPBOHbT/i7I6/D+4DdtSzbeu2aWZG1ENwpbZOd46uO+PSAz9flJEhxxi+b4MVb4gQ==}
 
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
@@ -2422,6 +2425,8 @@ snapshots:
       '@babel/types': 7.24.7
 
   '@types/estree@1.0.5': {}
+
+  '@types/google.maps@3.55.11': {}
 
   '@types/json5@0.0.29': {}
 

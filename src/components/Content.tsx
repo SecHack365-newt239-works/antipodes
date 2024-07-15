@@ -22,7 +22,7 @@ type Props = {
 
 const Content: React.FC<Props> = ({ lat, lng }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState();
+  const [map, setMap] = useState<google.maps.Map>();
 
   useEffect(() => {
     if (ref.current && !map) {
