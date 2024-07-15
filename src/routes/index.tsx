@@ -4,6 +4,7 @@ import { Wrapper } from "@googlemaps/react-wrapper";
 import { createFileRoute } from "@tanstack/react-router";
 
 import Content from "#/components/Content";
+import Marker from "#/components/Marker";
 import { calculateAntipodes } from "#/libs/antipodes";
 
 export const Route = createFileRoute("/")({
@@ -48,7 +49,18 @@ export const Route = createFileRoute("/")({
                 <p>Longitude: {currentPosition.lon}</p>
               </div>
               <div style={{ width: "100%", height: "500px" }}>
-                <Content lat={currentPosition.lat} lng={currentPosition.lon} />
+                <Content
+                  lat={currentPosition.lat}
+                  lng={currentPosition.lon}
+                  zoom={16}
+                >
+                  <Marker
+                    position={{
+                      lat: currentPosition.lat,
+                      lng: currentPosition.lon,
+                    }}
+                  />
+                </Content>
               </div>
             </div>
           )}
@@ -60,7 +72,14 @@ export const Route = createFileRoute("/")({
                 <p>Longitude: {antipode.lon}</p>
               </div>
               <div style={{ width: "100%", height: "500px" }}>
-                <Content lat={antipode.lat} lng={antipode.lon} />
+                <Content lat={antipode.lat} lng={antipode.lon} zoom={4}>
+                  <Marker
+                    position={{
+                      lat: antipode.lat,
+                      lng: antipode.lon,
+                    }}
+                  />
+                </Content>
               </div>
             </div>
           )}

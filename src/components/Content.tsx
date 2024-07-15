@@ -1,13 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-
-// 最初にMapを表示する時の設定
-const DEFAULT = {
-  CENTER: {
-    lat: 35.6973225,
-    lng: 139.8265658,
-  },
-  ZOOM: 16,
-} as const;
+import {
+  Children,
+  cloneElement,
+  isValidElement,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 // width指定がないと描画されない。
 const VIEW_STYLE = {
@@ -18,9 +16,13 @@ const VIEW_STYLE = {
 type Props = {
   lat: number;
   lng: number;
+  zoom: number;
+  children?:
+    | React.ReactElement<google.maps.MarkerOptions>[]
+    | React.ReactElement<google.maps.MarkerOptions>;
 };
 
-const Content: React.FC<Props> = ({ lat, lng }) => {
+const Content: React.FC<Props> = ({ lat, lng, children, zoom }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
 
@@ -31,13 +33,22 @@ const Content: React.FC<Props> = ({ lat, lng }) => {
           lat,
           lng,
         },
-        zoom: DEFAULT.ZOOM,
+        zoom,
       };
       setMap(new window.google.maps.Map(ref.current, option));
     }
   }, []);
 
-  return <div ref={ref} style={VIEW_STYLE} />;
+  return (
+    <>
+      <div ref={ref} style={VIEW_STYLE} />
+      {Children.map(children, (child) => {
+        if (isValidElement(child)) {
+          return cloneElement(child, { map });
+        }
+      })}
+    </>
+  );
 };
 
 export default Content;
